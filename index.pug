@@ -1,0 +1,37 @@
+doctype html
+head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no")
+    title Cash Register
+    link(rel="stylesheet" type="text/css" href="css/materialize.css")
+    link(rel="stylesheet" type="text/css" href="css/styles.css")
+    script(src="https://kit.fontawesome.com/24c4b8cc2f.js" crossorigin="anonymous")
+body
+    main.main
+        section.register
+            div.items
+                ul.items__list
+            div.total 
+                span.total__text Total
+                span.total__amount $48.99
+        section.options
+            ul.options__list
+                li
+                    a.waves-effect.waves-blue(href="#" data-view="pictures") 
+                        i.fad.fa-car
+                        | Choose by Picture
+                li
+                    a.waves-effect.waves-red(href="#" data-view="scan") 
+                        i.fad.fa-barcode-scan
+                        | Scan
+                li
+                    a.waves-effect.waves-alt-green(href="#" data-view="pay") 
+                        i.fad.fa-money-bill-alt
+                        | Pay
+        section#pictures.view.hidden
+            ul.pictures__list
+        section#scan.view.hidden
+        section#pay.view.hidden
+
+    script(type="text/javascript" src="js/main.js")
+    script(type="text/javascript" src="js/materialize.min.js")

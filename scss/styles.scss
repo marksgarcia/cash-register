@@ -1,0 +1,704 @@
+/********* MIXINS *********/
+@mixin boxshadow($property) {
+    -moz-box-shadow: $property;
+    -ms-box-shadow: $property;
+    -webkit-box-shadow: $property;
+    box-shadow: $property;
+}
+
+@mixin transform($property) {
+    -moz-transform: $property;
+    -ms-transform: $property;
+    -webkit-transform: $property;
+    transform: $property;
+}
+
+@mixin transition($property) {
+    -moz-transition: $property;
+    -ms-transition: $property;
+    -webkit-transition: $property;
+    transition: $property;
+}
+
+@mixin flexbox {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+/***********************************/
+/************           ************/
+/**********   VARIABLES   **********/
+/************           ************/
+/***********************************/
+
+/*** FONTS *************************/
+$font-stack: -apple-system,
+BlinkMacSystemFont,
+"Segoe UI",
+Roboto,
+Helvetica,
+Arial,
+sans-serif,
+"Apple Color Emoji",
+"Segoe UI Emoji",
+"Segoe UI Symbol";
+
+/*** COLORS ************************/
+$black: #000000ff;
+$jet: #333333ff;
+$charcoal: #363b48ff;
+$dim-gray: #666666ff;
+$spanish-gray: #999999ff;
+$light-gray: #ccccccff;
+$light-gray-2: #d7d7d7ff;
+$platinum: #e7e7e7ff;
+$cultured: #f7f7f7ff;
+$white: #ffffffff;
+
+$steel-pink: #e012c3ff;
+$medium-slate-blue: #7b72e9ff;
+$bleu-de-france: #4586d0ff;
+$blue-crayola: #007affff;
+$cyan-process: #00ade6ff;
+$may-green: #388e3cff;
+$mountain-meadow: #02c39aff;
+$dark-pastel-green: #04bc30ff;
+$tangerine: #f28500ff;
+$red-salsa: #ff4351ff;
+$notes: #ffcc00;
+
+
+@keyframes swipe {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(0deg);
+    }
+
+    30% {
+        transform: rotate(90deg);
+    }
+
+    35% {
+        transform: rotate(90deg);
+    }
+
+    40% {
+        transform: rotate(90deg) translate(0px, -500px);
+    }
+
+    50% {
+        transform: rotate(90deg) translate(0px, -500px);
+    }
+
+    55% {
+        transform: rotate(90deg) translate(700px, -500px);
+    }
+
+    100% {
+        transform: rotate(90deg) translate(700px, -500px);
+    }
+
+}
+
+@keyframes move {
+    0% { transform: translate(0, 0);}
+    25% { transform: translate(0, 0);}
+    30% { transform: translate(0, 100px) scale(1.2);}
+    45% { transform: translate(0, 100px) scale(1.2);}
+    55% { transform: translate(0, 100px) scale(1.2);}
+    65% { transform: translate(0, 100px) scale(1.2);}
+    75% { transform: translate(0, 100px) scale(1.2);}
+    95% { transform: translate(0, 100px) scale(1.2);}
+    100% { transform: translate(0, 0);}
+}
+
+@keyframes drop {
+    0% {transform: translate(0, 0) rotate(90deg)}
+    80% {transform: translate(0, 0) rotate(90deg)}
+    100% {transform: translate(0 , 600px) rotate(90deg)}
+}
+
+@keyframes rotate {
+    from {transform: rotate(0deg);transform-origin: center;}
+    to {transform: rotate(360deg);transform-origin: center;}
+}
+
+body {
+    display: grid;
+    font-family: $font-stack;
+    width: 100%;
+    height: 100%;
+    min-height: 768px;
+}
+
+.main {
+    display: grid;
+    grid-template-rows: 0.5fr 5fr 0.5fr 3fr 0.5fr;
+    grid-template-columns: 1fr 2fr 2fr 2fr 2fr 2fr 1fr;
+    grid-template-areas:
+        ". . . . . . ."
+        ". register  register register register register ."
+        ". . . . . . ."
+        ". options options options options options ."
+        ". . . . . . .";
+    height: 100%;
+    width: 100%;
+
+    .register {
+        //border: 10px solid $red-salsa;
+        @include boxshadow((-3px -3px 9px $cultured, 6px 6px 18px $platinum));
+        border-radius: 20px;
+        grid-area: register;
+        @include flexbox();
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: flex-end;
+        align-content: flex-end;
+
+        .items {
+            @include flexbox();
+            align-items: stretch;
+            height: 20em;
+            overflow: scroll;
+            width: 100%;
+
+            .items__list {
+                @include flexbox();
+                flex-wrap: wrap;
+                list-style: none;
+                align-items: flex-end;
+                align-content: flex-end;
+                min-height: min-content;
+                margin: 0;
+                padding: 0;
+                width: 100%;
+
+                .item {
+                    border-top: 1px solid $light-gray-2;
+                    @include flexbox();
+                    align-items: center;
+                    margin: 0;
+                    width: 100%;
+
+                    .item__desc {
+                        color: $dim-gray;
+                        font-size: 1.2em;
+                        margin: 0 2% 0 5%;
+                        padding: 0.5em;
+                        text-align: right;
+                        width: calc(78% - 5.5em);
+                    }
+
+                    .item__image {
+                        height: 2.5em;
+                        padding: 0.5em;
+                        border-right: 2px solid $platinum;
+                    }
+
+                    .item__price {
+                        color: $charcoal;
+                        font-size: 1.2em;
+                        font-weight: 700;
+                        padding: 0.5em;
+                        text-align: right;
+                        width: 15%;
+                    }
+                }
+            }
+        }
+
+        .total {
+            box-sizing: border-box;
+            border-top: 3px solid $red-salsa;
+            @include flexbox();
+            flex: 1 0;
+            align-items: stretch;
+            width: 100%;
+            height: 5em;
+
+            .total__text {
+                @include flexbox();
+                align-items: center;
+                justify-content: flex-end;
+                border-right: 4px solid $cultured;
+                color: $dim-gray;
+                font-size: 1.5em;
+                font-weight: 700;
+                margin: 0 2% 0 5%;
+                padding: 0.5em;
+                text-align: right;
+                width: 80%;
+            }
+
+            .total__amount {
+                @include flexbox();
+                align-items: center;
+                justify-content: center;
+                color: $charcoal;
+                font-size: 2em;
+                font-weight: 700;
+                padding: 0.5em;
+                text-align: center;
+                width: 20%;
+            }
+        }
+
+    }
+
+    .options {
+        grid-area: options;
+
+        .options__list {
+            @include flexbox();
+            justify-content: space-between;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+
+            li {
+                background: $white;
+                @include flexbox();
+                //border: 10px solid $red-salsa;
+                align-items: flex-start;
+                justify-content: center;
+                list-style: none;
+                width: 30%;
+
+                a {
+                    border-radius: 20px;
+                    @include boxshadow(0px 5px 10px $platinum);
+                    color: $dim-gray;
+                    @include flexbox();
+                    flex-wrap: wrap;
+                    align-items: center;
+                    align-content: center;
+                    justify-content: center;
+                    font-weight: 800;
+                    font-size: 1.5em;
+                    padding-bottom: 0.25em;
+                    text-align: center;
+                    text-decoration: none;
+                    width: 100%;
+
+                    i {
+                        color: $red-salsa;
+                        font-size: 3em;
+                        margin: 0.25em 0;
+                        width: 100%;
+                    }
+                }
+            }
+
+            li:first-child {
+                a {
+                    i {
+                        color: $blue-crayola;
+                    }
+                }
+            }
+
+            li:last-child {
+                a {
+                    i {
+                        color: $mountain-meadow;
+                    }
+                }
+            }
+
+        }
+    }
+
+    .view {
+        background: white;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+
+        ul {
+            @include flexbox();
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-content: flex-start;
+            align-items: center;
+            justify-content: center;
+
+            li {
+                @include flexbox();
+                margin: 0.5% 1%;
+                width: 15%;
+
+                a {
+                    background: white;
+                    border-radius: 20px;
+                    @include boxshadow((-3px -3px 9px $cultured, 6px 6px 18px $cultured));
+                    @include flexbox();
+                    flex-wrap: wrap;
+                    align-items: center;
+                    align-content: center;
+                    justify-content: center;
+                    width: 100%;
+
+                    .item__title {
+                        color: $charcoal;
+                        font-size: 1.1em;
+                        font-weight: 900;
+                        margin-top: 0.25em;
+                    }
+
+                    img {
+                        margin: 0.5em 35% 0.15em;
+                        width: 30%;
+                    }
+
+                    .item__cost {
+                        color: $dim-gray;
+                        text-align: center;
+                        margin-bottom: 0.5em;
+                        width: 100%;
+                    }
+                }
+            }
+        }
+
+    }
+
+    #pictures {
+        overflow: auto;
+    }
+
+    #scan {
+        align-content: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        align-content: center;
+        justify-content: center;
+        align-items: stretch;
+
+        .scanner-wrapper {
+            @include flexbox();
+            flex-wrap: wrap;
+            flex-direction: row;
+            align-content: center;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            height: 75%;
+            width: 75%;
+
+            .quadrant {
+                display: block;
+                margin: 1em;
+                height: 10em;
+                width: 20em;
+            }
+
+            .quadrant.upper-left {
+                border-left: 3px solid $red-salsa;
+                border-top: 3px solid $red-salsa;
+                border-radius: 20px 0 0 0;
+            }
+
+            .quadrant.upper-right {
+                border-right: 3px solid $red-salsa;
+                border-top: 3px solid $red-salsa;
+                border-radius: 0 20px 0 0;
+            }
+
+            .quadrant.lower-left {
+                border-left: 3px solid $red-salsa;
+                border-bottom: 3px solid $red-salsa;
+                border-radius: 0 0 0 20px;
+            }
+
+            .quadrant.lower-right {
+                border-right: 3px solid $red-salsa;
+                border-bottom: 3px solid $red-salsa;
+                border-radius: 0 0 20px 0;
+            }
+
+            .scan-button {
+                background: $red-salsa;
+                border-radius: 20px;
+                @include flexbox();
+                align-items: center;
+                justify-content: center;
+                color: $white;
+                font-size: 2em;
+                margin-top: 1em;
+                padding: 0.75em 0;
+                text-align: center;
+                width: 20em;
+            }
+
+
+        }
+
+        .scanner-wrapper:before {
+            background: $red-salsa;
+            content: "";
+            filter: blur(5px);
+            border-radius: 20px;
+            left: 0;
+            top: 10%;
+            opacity: 0;
+            position: absolute;
+            height: 0.3em;
+            width: 100%;
+        }
+
+        .scanner-wrapper:after {
+            background: $red-salsa;
+            content: "";
+            border-radius: 20px;
+            left: 0;
+            top: 10%;
+            opacity: 0;
+            position: absolute;
+            height: 0.3em;
+            width: 100%;
+        }
+
+        .scanner-wrapper.activated:before,
+        .scanner-wrapper.activated:after {
+            top: 70%;
+            opacity: 1;
+            @include transition(0.7s);
+        }
+    }
+
+    #pay {
+        .payments-wrapper {
+            @include flexbox();
+            align-items: center;
+            justify-content: center;
+            align-content: center;
+            flex-direction: row;
+            width: 100%;
+
+            .payments__list {
+                @include flexbox();
+                flex-direction: row;
+                align-items: center;
+                width: 100%;
+
+                .payment__list__item {
+                    @include flexbox();
+                    margin: 0 2em;
+                    width: 25% !important;
+
+                    .payment-button {
+
+                        @include flexbox();
+                        flex-direction: row;
+                        flex-wrap: wrap;
+                        padding: 0.5em 1em;
+
+                        i {
+                            font-size: 6em;
+                            margin-top: 0.3em;
+                            text-align: center;
+                            width: 100%;
+                        }
+
+                        span {
+                            color: $dim-gray !important;
+                            font-size: 1.5em;
+                            font-weight: 900;
+                            margin: 1em 0;
+                            text-align: center;
+                            text-transform: capitalize;
+                            width: 100%;
+                        }
+                    }
+
+                    .credit-card {
+                        color: $blue-crayola;
+                    }
+
+                    .gift-card {
+                        color: $red-salsa;
+                    }
+
+                    .cash {
+                        color: $mountain-meadow;
+                    }
+                }
+            }
+        }
+
+        .payment-ui {
+            @include flexbox();
+            @include boxshadow(none);
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-content: center;
+            align-items: center;
+            width: 100%;
+
+            .animation-container {
+                @include flexbox();
+                position: relative;
+                align-items: center;
+                height: 50%;
+                width: 100%;
+
+                .animation-wrapper {
+                    @include flexbox();
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                    align-content: center;
+                    align-items: center;
+                    justify-content: center;
+                    position: relative;
+                    height: 100%;
+                    width: 100%;
+
+                    .instructions {
+                        font-size: 2em;
+                        text-align: center;
+                        width: 90%;
+                    }
+
+                    i {
+                        font-size: 12em;
+                        position: absolute;
+                    }
+
+                }
+
+                .animation-wrapper.credit-card {
+
+                    i {
+                        top: -10%;
+                        color: $blue-crayola;
+                        animation: swipe 10s linear 0s infinite;
+                    }
+                }
+
+                .animation-wrapper.gift-card {
+                    i {
+                        bottom: -10%;
+                        color: $red-salsa;
+                        animation: move 10s linear 0s infinite;
+
+                    }
+
+                }
+
+                .animation-wrapper.cash {
+
+                    i.fa-coin {
+                        font-size: 6em;
+                        font-weight: 900;
+                        left: 10%;
+                        bottom: -10%;
+                        transform: rotate(90deg);
+                        color: $notes;
+                        animation: drop 2s linear 1.5s infinite;
+                    }
+
+                    i.fa-money-bill {
+                        color: $mountain-meadow;
+                        font-size: 12em;
+                        right: 10%;
+                        bottom: -10%;
+                        animation: drop 3s linear 0s infinite;
+                    } 
+                }
+
+            }
+
+            .pay-now-button {
+                border-radius: 20px;
+                color: $white;
+                @include flexbox();
+                align-content: center;
+                align-items: center;
+                justify-content: center;
+                font-size: 2em;
+                padding: 0.5em;
+                position: relative;
+                z-index: 1000;
+                height: 3em;
+                width: 20em;
+            }
+
+            .pay-now-button.credit-card {
+                background: $blue-crayola;
+            }
+
+            .pay-now-button.gift-card {
+                background: $red-salsa;
+                order: -1;
+            }
+
+            .pay-now-button.cash {
+                background: $mountain-meadow;
+                order: -1
+            }
+
+
+        }
+
+        .processing-container {
+            @include flexbox();
+            align-items: center;
+            justify-content: center;
+            align-content: center;
+            flex-wrap: wrap;
+            width: 100%;
+
+            i {
+                color: $dim-gray;
+                @include flexbox();
+                align-content: center;
+                justify-content: center;
+                font-size: 8em;
+                animation: rotate 1.2s linear 0s infinite;
+                height: 1em;
+                line-height: 1.1em !important;
+                width: 1em;
+            }
+
+            span {
+                color: $dim-gray;
+                font-size: 2em;
+                font-weight: bold;
+                margin-top: 0.5em;
+                text-align: center;
+                width: 100%;
+            }
+        }
+
+        .thanks-container {
+            @include flexbox();
+            align-items: center;
+            justify-content: center;
+            align-content: center;
+            flex-wrap: wrap;
+            width: 100%;
+
+            img {
+                width: 100%;
+                
+            }
+        }
+    }
+
+    .view.hidden {
+        display: none;
+    }
+
+    .view.visible {
+        @include flexbox();
+        z-index: 10000;
+    }
+
+}
